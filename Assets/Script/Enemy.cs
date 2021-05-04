@@ -18,11 +18,11 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        if(transform.position.y <= -5.5f)
-        {
-            float randomX = Random.Range(-9.5f, 9.5f);
-            transform.position = new Vector3(randomX, 7.5f, 0);
-        }
+        //if(transform.position.y <= -5.5f)
+        //{
+        //    float randomX = Random.Range(-9.5f, 9.5f);
+        //    transform.position = new Vector3(randomX, 7.5f, 0);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,13 +30,13 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.GetComponent<Player>();
-            if(player != null)
+            if (player != null)
             {
                 player.Damage();
             }
             Destroy(gameObject);
         }
-        else if(other.tag == "Laser")
+        else if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
