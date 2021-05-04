@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         if(_lives < 1)
         {
             _spawnManager.PlayerDeath();
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

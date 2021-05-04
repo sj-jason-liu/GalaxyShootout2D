@@ -18,11 +18,11 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        //if(transform.position.y <= -5.5f)
-        //{
-        //    float randomX = Random.Range(-9.5f, 9.5f);
-        //    transform.position = new Vector3(randomX, 7.5f, 0);
-        //}
+        if (transform.position.y <= -5.5f)
+        {
+            float randomX = Random.Range(-9.5f, 9.5f);
+            transform.position = new Vector3(randomX, 7.5f, 0);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,4 +42,5 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 }
