@@ -33,6 +33,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5);
         }
     }
+    
 
     public void PlayerDeath()
     {
