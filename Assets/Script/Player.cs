@@ -64,10 +64,7 @@ public class Player : MonoBehaviour
     void ShootLaser()
     {
         _canFire = Time.time + _fireRate;  
-        //if tripleShotActive
-            //instantiate triple shot
-        //else 
-            //instantiate 1 shot
+
         if(_isTripleShotActived)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
@@ -87,5 +84,17 @@ public class Player : MonoBehaviour
             _spawnManager.PlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    public void TripleShotActive()
+    {
+        _isTripleShotActived = true;
+        StartCoroutine(TripleShotDeactive());
+    }
+
+    IEnumerator TripleShotDeactive()
+    {
+        yield return new WaitForSeconds(5);
+        _isTripleShotActived = false;
     }
 }
