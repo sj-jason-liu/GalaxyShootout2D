@@ -136,8 +136,6 @@ public class Player : MonoBehaviour
         _shieldEffect.SetActive(true);
     }
 
-    //Create a function to add score
-    //communicate with UI script
     public void AddScore(int points)
     {
         _score += points;

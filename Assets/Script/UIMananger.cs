@@ -30,12 +30,6 @@ public class UIMananger : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpdateScore(int playerScore)
     {
         _scoreText.text = "Score: " + playerScore;
@@ -56,12 +50,12 @@ public class UIMananger : MonoBehaviour
 
     IEnumerator GameoverTextFlicker()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(0.5f);
             _gameoverText.gameObject.GetComponent<Text>().enabled = false;
             yield return new WaitForSeconds(0.5f);
             _gameoverText.gameObject.GetComponent<Text>().enabled = true;
-        }   
+        }
     }
 }
