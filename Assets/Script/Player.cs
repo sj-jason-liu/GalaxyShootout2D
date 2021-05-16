@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private GameObject _tripleShotPrefab;
     private bool _isTripleShotActived = false;
     private bool _isShieldActived = false;
+    private bool _isDestroyed = false;
 
     [SerializeField]
     private GameObject _shieldEffect;
@@ -28,7 +29,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _score;
     private UIMananger _uiManager;
-    // Start is called before the first frame update
+    [SerializeField]
+    private GameObject _rightDamage, _leftDamage;
+    [SerializeField]
+    private GameObject _explosion;
+
     void Start()
     {
         transform.position = new Vector3(0, -2f, 0);
@@ -62,7 +67,11 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        transform.Translate(direction * _speed * Time.deltaTime);
+        
+        if(!_isDestroyed)
+        {
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
 
         transform.position = 
             new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
@@ -97,12 +106,25 @@ public class Player : MonoBehaviour
         }
 
         _lives--;
+
+        switch (_lives)
+        {
+            case 2:
+                _rightDamage.SetActive(true);
+                break;
+            case 1:
+                _leftDamage.SetActive(true);
+                break;
+        }
+
         _uiManager.UpdateSprite(_lives);
 
         if (_lives < 1)
         {
+            _isDestroyed = true;
             _spawnManager.PlayerDeath();
-            Destroy(gameObject);
+            Instantiate(_explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject, 0.5f);
         }
     }
 
