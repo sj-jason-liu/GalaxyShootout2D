@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
 
     private Player _player;
     private Animator _anim;
+    [SerializeField]
+    private AudioClip _enemyExplosionClip;
+    private AudioSource _enemyExplosionSource;
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -20,7 +23,17 @@ public class Enemy : MonoBehaviour
         _anim = GetComponent<Animator>();
         if(_anim == null)
         {
-            Debug.LogError("Animator is NULL.");
+            Debug.LogError("Animator is missing!");
+        }
+
+        _enemyExplosionSource = GetComponent<AudioSource>();
+        if(_enemyExplosionSource == null)
+        {
+            Debug.LogError("EnemyAudio is Missing!");
+        }
+        else
+        {
+            _enemyExplosionSource.clip = _enemyExplosionClip;
         }
     }
 
@@ -46,6 +59,7 @@ public class Enemy : MonoBehaviour
                 player.Damage();
             }
             _anim.SetTrigger("OnEnemyDeath");
+            _enemyExplosionSource.Play();
             GetComponent<BoxCollider2D>().enabled = false;
             _speed = 0.5f;
             Destroy(gameObject, 2.4f);
@@ -58,6 +72,7 @@ public class Enemy : MonoBehaviour
                 _player.AddScore(10); //communicate to player to add score
             }
             _anim.SetTrigger("OnEnemyDeath");
+            _enemyExplosionSource.Play();
             GetComponent<BoxCollider2D>().enabled = false;
             _speed = 0.5f;
             Destroy(gameObject, 2.4f);          

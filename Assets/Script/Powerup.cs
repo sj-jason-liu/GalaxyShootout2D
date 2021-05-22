@@ -8,8 +8,23 @@ public class Powerup : MonoBehaviour
     private float _speed = 3f;
     [SerializeField] //0 = triple shot, 1 = speed, 2 = shields
     private int _powerupID;
+    [SerializeField]
+    private AudioClip _powerupAudioClip;
+    private AudioSource _powerupAudioSource;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        _powerupAudioSource = GetComponent<AudioSource>();
+        if(_powerupAudioSource == null)
+        {
+            Debug.Log("Audio Source is missing!");
+        }
+        else
+        {
+            _powerupAudioSource.clip = _powerupAudioClip;
+        }
+    }
+
     void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
@@ -24,6 +39,7 @@ public class Powerup : MonoBehaviour
         if(other.tag == "Player")
         {
             Player player = other.transform.GetComponent<Player>();
+            _powerupAudioSource.Play();
             if(player != null)
             {
                 switch(_powerupID)
@@ -41,8 +57,10 @@ public class Powerup : MonoBehaviour
                         Debug.Log("Defaule value");
                         break;
                 }
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<SpriteRenderer>().enabled = false;
             }
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
         }
     }
 }
