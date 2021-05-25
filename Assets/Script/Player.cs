@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserAudioClip;
     private AudioSource _laserAudioSource;
+    private Color shieldAlpha;
 
     void Start()
     {
@@ -45,8 +46,9 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIMananger>();
         _laserAudioSource = GetComponent<AudioSource>();
-        
-        if(_spawnManager == null)
+        shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
+
+        if (_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is missing!");
         }
@@ -125,9 +127,18 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         if(_isShieldActived)
-        {
-            _isShieldActived = false;
-            _shieldEffect.SetActive(false);
+        {         
+            if(shieldAlpha.a < 0.4f)
+            {
+                _isShieldActived = false;
+                _shieldEffect.SetActive(false);
+            }
+            else
+            {
+                shieldAlpha.a -= 0.4f; //set alpha decrease when damage
+                Debug.Log("Current alpha is " + shieldAlpha.a);
+                _shieldEffect.GetComponent<SpriteRenderer>().color = shieldAlpha;
+            }     
             return;
         }
 
@@ -182,6 +193,8 @@ public class Player : MonoBehaviour
     {
         _isShieldActived = true;
         _shieldEffect.SetActive(true);
+        shieldAlpha.a = 1f; //set the alpha of shield to full
+        _shieldEffect.GetComponent<SpriteRenderer>().color = shieldAlpha;
     }
 
     public void AddScore(int points)
