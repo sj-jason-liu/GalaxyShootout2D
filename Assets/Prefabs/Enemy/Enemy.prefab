@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d1eff498fcb1e4db0af42f786a1a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 3
+  _enemyLaser: {fileID: 4802890049676785043, guid: 87453fd046b348a438aa13bbbfb94518,
+    type: 3}
   _enemyExplosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!212 &4569349813110806367
 SpriteRenderer:

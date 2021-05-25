@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 846036639229387946}
   - component: {fileID: 1776480944328212338}
   - component: {fileID: 2218530419828138819}
-  - component: {fileID: -6416443859726850735}
+  - component: {fileID: 430012312382751108}
   m_Layer: 0
   m_Name: Speed_Powerup
   m_TagString: Untagged
@@ -167,7 +167,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &-6416443859726850735
+--- !u!82 &430012312382751108
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +178,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8856747671541360720}
   - component: {fileID: 3336837260939576798}
   - component: {fileID: 7865448988403812921}
-  - component: {fileID: 5028118352013902693}
+  - component: {fileID: -1110635489744747230}
   m_Layer: 0
   m_Name: Triple_Shot_Powerup
   m_TagString: Untagged
@@ -167,7 +167,7 @@ MonoBehaviour:
   _speed: 3
   _powerupID: 0
   _powerupAudioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
---- !u!82 &5028118352013902693
+--- !u!82 &-1110635489744747230
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +178,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 335847321399720950}
   - component: {fileID: 1585523790923516580}
   - component: {fileID: 708026863403545641}
-  - component: {fileID: 6599485558143278690}
+  - component: {fileID: -9095328017954700135}
   m_Layer: 0
   m_Name: Shield_Powerup
   m_TagString: Untagged
@@ -167,7 +167,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &6599485558143278690
+--- !u!82 &-9095328017954700135
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +178,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
