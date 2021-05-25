@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 3.5f;
     [SerializeField]
+    private float _thrusterSpeed = 3f;
+    [SerializeField]
     private float _speedAddValue = 3.5f;
     [SerializeField]
     private GameObject _laserPrefab;
@@ -67,6 +69,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _speed += _thrusterSpeed;
+        }
+        else if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _speed -= _thrusterSpeed;
+        }
+        
         CalculateMovement();
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
