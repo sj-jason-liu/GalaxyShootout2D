@@ -460,6 +460,7 @@ GameObject:
   - component: {fileID: 418843062}
   - component: {fileID: 418843061}
   - component: {fileID: 418843063}
+  - component: {fileID: 418843064}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -706,6 +707,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &418843064
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418843057}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b32c12e969ce7974fac0fc1cda43fae8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &485281804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1156,7 @@ GameObject:
   - component: {fileID: 961168532}
   - component: {fileID: 961168531}
   - component: {fileID: 961168534}
+  - component: {fileID: 961168535}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1268,6 +1289,21 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &961168535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961168530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b963a85e78ae61458e434eb4f495d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraPosition: {fileID: 961168533}
+  _shakeRadius: 0.3
+  _shakeDecrease: 4
 --- !u!1 &1158812574
 GameObject:
   m_ObjectHideFlags: 0

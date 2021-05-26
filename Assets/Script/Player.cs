@@ -35,10 +35,12 @@ public class Player : MonoBehaviour
     private GameObject _rightDamage, _leftDamage;
     [SerializeField]
     private GameObject _explosion;
+    private Animator _playerTurningAnim;
     [SerializeField]
     private AudioClip _laserAudioClip;
     private AudioSource _laserAudioSource;
     private Color shieldAlpha;
+    private CameraShaker _cameraShaker;
 
     void Start()
     {
@@ -47,6 +49,8 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIMananger>();
         _laserAudioSource = GetComponent<AudioSource>();
         shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
+        _playerTurningAnim = GetComponent<Animator>();
+        _cameraShaker = GameObject.Find("Main Camera").GetComponent<CameraShaker>();
 
         if (_spawnManager == null)
         {
@@ -65,6 +69,11 @@ public class Player : MonoBehaviour
         else
         {
             _laserAudioSource.clip = _laserAudioClip;
+        }
+
+        if(_cameraShaker == null)
+        {
+            Debug.LogError("CameraShaker is missing!");
         }
     }
 
@@ -93,6 +102,7 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        _playerTurningAnim.SetFloat("Turning", horizontalInput);
         
         if(!_isDestroyed)
         {
@@ -154,6 +164,7 @@ public class Player : MonoBehaviour
                 break;
         }
 
+        _cameraShaker.EngageShake(1);
         _uiManager.UpdateSprite(_lives);
 
         if (_lives < 1)
