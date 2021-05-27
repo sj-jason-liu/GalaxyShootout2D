@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     private float _speedAddValue = 3.5f;
     [SerializeField]
     private GameObject _laserPrefab;
+
+    [SerializeField]
+    private int _laserCounts = 15;
+    
     [SerializeField]
     private float _fireRate = 0.2f;
     private float _canFire = -1f;
@@ -39,6 +43,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserAudioClip;
     private AudioSource _laserAudioSource;
+    [SerializeField]
+    private AudioClip _laserExaustedClip;
     private Color shieldAlpha;
     private CameraShaker _cameraShaker;
 
@@ -77,7 +83,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.LeftShift))
@@ -94,6 +99,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             ShootLaser();
+            _laserCounts--;
+            _uiManager.UpdateAmmo(_laserCounts);
         }             
     }
 
@@ -120,17 +127,22 @@ public class Player : MonoBehaviour
 
     void ShootLaser()
     {
-        _canFire = Time.time + _fireRate;  
-
-        if(_isTripleShotActived)
+        _canFire = Time.time + _fireRate;       
+        if(_laserCounts > 0)
         {
-            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+            if (_isTripleShotActived)
+            {
+                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+            }           
         }
         else
         {
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+            _laserAudioSource.clip = _laserExaustedClip;
         }
-
         _laserAudioSource.Play();
     }
 

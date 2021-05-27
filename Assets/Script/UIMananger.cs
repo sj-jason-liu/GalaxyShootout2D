@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIMananger : MonoBehaviour
 {
-    //get the text component
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
@@ -15,11 +14,13 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Text _quitText;
     [SerializeField]
+    private Text _ammoText;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Sprite[] _livesSprite;
     private GameManager _gameManager;
-    // Start is called before the first frame update
+
     void Start()
     {
         _scoreText.text = "Score: " + 0;
@@ -62,4 +63,16 @@ public class UIMananger : MonoBehaviour
             _gameoverText.gameObject.GetComponent<Text>().enabled = true;
         }
     }
+
+    public void UpdateAmmo(int ammoCount)
+    {
+        if(ammoCount > 0)
+        {
+            _ammoText.text = "Ammo: " + ammoCount;
+        }
+        else
+        {
+            _ammoText.text = "Ammo: " + 0;
+        }
+    }    
 }
