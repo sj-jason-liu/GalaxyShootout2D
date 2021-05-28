@@ -28,7 +28,7 @@ public class Powerup : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-        if(transform.position.y <= -6f)
+        if(transform.position.y <= -8f)
         {
             Destroy(gameObject);
         }
@@ -52,6 +52,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case 2:
                         player.ShieldActive();
+                        break;
+                    case 3:
+                        player.AmmoCollected();
                         break;
                     default:
                         Debug.Log("Defaule value");

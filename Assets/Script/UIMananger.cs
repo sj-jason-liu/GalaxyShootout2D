@@ -68,11 +68,11 @@ public class UIMananger : MonoBehaviour
     {
         if(ammoCount > 0)
         {
-            _ammoText.text = "Ammo: " + ammoCount;
+            _ammoText.text = ": " + ammoCount;
         }
         else
         {
-            _ammoText.text = "Ammo: " + 0;
+            _ammoText.text = ": " + 0;
         }
     }    
 }

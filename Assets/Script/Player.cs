@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private AudioSource _laserAudioSource;
     [SerializeField]
     private AudioClip _laserExaustedClip;
-    private Color shieldAlpha;
+    private Color _shieldAlpha;
     private CameraShaker _cameraShaker;
 
     void Start()
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIMananger>();
         _laserAudioSource = GetComponent<AudioSource>();
-        shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
+        _shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
         _playerTurningAnim = GetComponent<Animator>();
         _cameraShaker = GameObject.Find("Main Camera").GetComponent<CameraShaker>();
 
@@ -117,9 +117,9 @@ public class Player : MonoBehaviour
         }
 
         transform.position = 
-            new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
+            new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -5.6f, 2), 0);
 
-        if (transform.position.x > 11.3f || transform.position.x < -11.3f)
+        if (transform.position.x > 13.3f || transform.position.x < -13.3f)
         {
             transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
         }
@@ -150,16 +150,15 @@ public class Player : MonoBehaviour
     {
         if(_isShieldActived)
         {         
-            if(shieldAlpha.a < 0.4f)
+            if(_shieldAlpha.a < 0.4f)
             {
                 _isShieldActived = false;
                 _shieldEffect.SetActive(false);
             }
             else
             {
-                shieldAlpha.a -= 0.4f; //set alpha decrease when damage
-                Debug.Log("Current alpha is " + shieldAlpha.a);
-                _shieldEffect.GetComponent<SpriteRenderer>().color = shieldAlpha;
+                _shieldAlpha.a -= 0.4f; //set alpha decrease when damage
+                _shieldEffect.GetComponent<SpriteRenderer>().color = _shieldAlpha;
             }     
             return;
         }
@@ -216,8 +215,14 @@ public class Player : MonoBehaviour
     {
         _isShieldActived = true;
         _shieldEffect.SetActive(true);
-        shieldAlpha.a = 1f; //set the alpha of shield to full
-        _shieldEffect.GetComponent<SpriteRenderer>().color = shieldAlpha;
+        _shieldAlpha.a = 1f; //set the alpha of shield to full
+        _shieldEffect.GetComponent<SpriteRenderer>().color = _shieldAlpha;
+    }
+
+    public void AmmoCollected()
+    {
+        _laserCounts += 15;
+        _uiManager.UpdateAmmo(_laserCounts);
     }
 
     public void AddScore(int points)
