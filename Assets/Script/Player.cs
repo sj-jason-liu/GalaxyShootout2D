@@ -165,15 +165,7 @@ public class Player : MonoBehaviour
 
         _lives--;
 
-        switch (_lives)
-        {
-            case 2:
-                _rightDamage.SetActive(true);
-                break;
-            case 1:
-                _leftDamage.SetActive(true);
-                break;
-        }
+        DamageSprites();
 
         _cameraShaker.EngageShake(1);
         _uiManager.UpdateSprite(_lives);
@@ -187,6 +179,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DamageSprites()
+    {
+        switch (_lives)
+        {
+            case 3:
+                _rightDamage.SetActive(false);
+                break;
+            case 2:
+                _rightDamage.SetActive(true);
+                _leftDamage.SetActive(false);
+                break;
+            case 1:
+                _leftDamage.SetActive(true);
+                break;
+        }
+    }
+    
     public void TripleShotActive()
     {
         _isTripleShotActived = true;
@@ -229,5 +238,15 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uiManager.UpdateScore(_score);
+    }
+
+    public void AddLives()
+    {
+        if(_lives < 3 && _lives != 0)
+        {
+            _lives++;
+            _uiManager.UpdateSprite(_lives);
+            DamageSprites();
+        }
     }
 }
