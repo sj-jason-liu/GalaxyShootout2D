@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
 { 
-    [SerializeField]
-    private Transform _cameraPosition;
     private Vector3 _originPosition;
     [SerializeField]
     private float _shakeRadius = 0.3f;
@@ -15,14 +13,14 @@ public class CameraShaker : MonoBehaviour
 
     void Start()
     {
-        _originPosition = _cameraPosition.position; //set teh originposition to camera position
+        _originPosition = transform.position; //set teh originposition to camera position
     }
 
     void Update()
     {
         if (_shakeValue > 0)
         {
-            _cameraPosition.position = _originPosition + Random.insideUnitSphere * _shakeRadius;
+            transform.position = _originPosition + Random.insideUnitSphere * _shakeRadius;
             _shakeValue -= Time.deltaTime * _shakeDecrease; //the higher the decrease number, the shorter the shake
         }
         else
