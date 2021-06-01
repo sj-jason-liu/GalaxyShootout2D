@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UIMananger : MonoBehaviour
 {
+    private bool _isThrusting = false;
+    private Player _player;
+
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
@@ -18,11 +21,15 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Image _livesImg;
     [SerializeField]
+    private Slider _slider;
+    [SerializeField]
     private Sprite[] _livesSprite;
     private GameManager _gameManager;
 
     void Start()
     {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        _slider.value = 0;
         _scoreText.text = "Score: " + 0;
         _gameoverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
@@ -31,6 +38,32 @@ public class UIMananger : MonoBehaviour
         if(_gameManager == null)
         {
             Debug.LogError("GameManager is NULL.");
+        }
+    }
+
+    private void Update()
+    {
+        if(!_isThrusting)
+        {
+            _slider.value += Time.deltaTime;
+        }
+        else
+        {
+            _slider.value -= Time.deltaTime * 3;
+            if(_slider.value <= 0)
+            {
+                _isThrusting = false;
+                _player.ThrustEnable(false);
+            }
+        }
+    }
+
+    public void ThrustTrigger()
+    {
+        if(_slider.value >= 6)
+        {
+            _isThrusting = true;
+            _player.ThrustEnable(true);
         }
     }
 

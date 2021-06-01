@@ -6,8 +6,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
+    private float _originSpeed;
     [SerializeField]
-    private float _thrusterSpeed = 3f;
+    private float _thrusterSpeed;
     [SerializeField]
     private float _speedAddValue = 3.5f;
     [SerializeField]
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
         _shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
         _playerTurningAnim = GetComponent<Animator>();
         _cameraShaker = GameObject.Find("Main Camera").GetComponent<CameraShaker>();
+        _originSpeed = _speed;
 
         if (_spawnManager == null)
         {
@@ -85,16 +87,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            _speed += _thrusterSpeed;
-        }
-        else if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _speed -= _thrusterSpeed;
-        }
-        
         CalculateMovement();
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _uiManager.ThrustTrigger();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -102,6 +99,19 @@ public class Player : MonoBehaviour
             _laserCounts--;
             _uiManager.UpdateAmmo(_laserCounts);
         }             
+    }
+
+    public void ThrustEnable(bool status)
+    {
+        switch(status)
+        {
+            case true:
+                _speed = _thrusterSpeed;
+                break;
+            case false:
+                _speed = _originSpeed;
+                break;
+        }
     }
 
     void CalculateMovement()
