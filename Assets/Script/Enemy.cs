@@ -9,10 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyLaser;
 
-    private int[] _directionValue = { -1, 1 };
     [SerializeField]
     private int _movementID;
-    private bool _isStartBolt = true;
 
     private Player _player;
     private Animator _anim;
@@ -22,15 +20,10 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3f;
     private float _canFire = -1f;
 
-    private Vector3 _moveLeft;
-    private Vector3 _moveRight;
-
     void Start()
     {
-        _movementID = Random.Range(0, 3);
+        _movementID = Random.Range(-1, 2);
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _moveLeft = new Vector3(-1, 0, 0);
-        _moveRight = new Vector3(1, 0, 0);
         if(_player == null)
         {
             Debug.LogError("Player component is missing!");
@@ -62,11 +55,8 @@ public class Enemy : MonoBehaviour
             case 0:
                 NormalMovement();
                 break;
-            case 1:
-                DiagonalMovement();
-                break;
-            case 2:
-                DiagonalMovement();
+            default:
+                DiagonalMovement(_movementID);
                 break;
         }
 
@@ -83,30 +73,17 @@ public class Enemy : MonoBehaviour
     void NormalMovement()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
-        if (transform.position.y <= -8.5f)
-        {
-            float randomX = Random.Range(-12f, 12f);
-            transform.position = new Vector3(randomX, 10f, 0);
-        }
-        if (transform.position.x > 13.3f || transform.position.x < -13.3f)
-        {
-            transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
-        }
+        BoundaryRespawn();
     }
 
-    void DiagonalMovement()
+    void DiagonalMovement(int direct)
     {
-        if(_movementID == 1)
-        {
-            transform.Translate(new Vector3(-1, -1, 0).normalized * _speed * Time.deltaTime);
-            Debug.Log("Move from right");
-        }
-        else
-        {
-            transform.Translate(new Vector3(1, -1, 0).normalized * _speed * Time.deltaTime);
-            Debug.Log("Move from right");
-        }
+        transform.Translate(new Vector3(direct, -1, 0).normalized * _speed * Time.deltaTime);
+        BoundaryRespawn();
+    }
+
+    void BoundaryRespawn()
+    {
         if (transform.position.y <= -8.5f)
         {
             float randomX = Random.Range(-12f, 12f);
@@ -117,7 +94,7 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
         }
     }
-
+    
     public void LaserHit()
     {
         if (_player != null)
