@@ -60,7 +60,7 @@ public class UIMananger : MonoBehaviour
 
     public void ThrustTrigger()
     {
-        if(_slider.value >= 6)
+        if (_slider.value >= 6)
         {
             _isThrusting = true;
             _player.ThrustEnable(true);
