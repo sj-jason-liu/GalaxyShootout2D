@@ -38,10 +38,26 @@ public class SpawnManager : MonoBehaviour
 
         while (_stopSpawn == false)
         {
+            int _tripleshotCount = 0;
             Vector3 posToSpwan = new Vector3(Random.Range(-12f, 12f), 10f, 0);
-            int randomPowerup = Random.Range(0, _powerups.Length);
-            Instantiate(_powerups[randomPowerup], posToSpwan, Quaternion.identity);
+            int randomPowerup = Random.Range(0, _powerups.Length - 1);
+            if(randomPowerup == 0)
+            {
+                _tripleshotCount++;
+            }
+            if(_tripleshotCount == 3)
+            {
+                Instantiate(_powerups[5], posToSpwan, Quaternion.identity);
+                _tripleshotCount = 0;
+            }
+            else
+            {
+                Instantiate(_powerups[randomPowerup], posToSpwan, Quaternion.identity);
+            }
             yield return new WaitForSeconds(Random.Range(3f, 8f));
+            //set int tripleshotCount = 0
+            //if randomPowerup == 0, tripleshotCount++
+            //if tripleshotCount == 5, instantiate powerup 5
         }
     }
 

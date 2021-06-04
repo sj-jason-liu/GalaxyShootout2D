@@ -59,8 +59,8 @@ public class Powerup : MonoBehaviour
                     case 4:
                         player.AddLives();
                         break;
-                    default:
-                        Debug.Log("Defaule value");
+                    case 5:
+                        player.FireworkshotActive();
                         break;
                 }
                 GetComponent<BoxCollider2D>().enabled = false;

@@ -697,6 +697,8 @@ MonoBehaviour:
   _lives: 3
   _tripleShotPrefab: {fileID: 6952943212105302301, guid: ce95f45d991d45b4fa81964f90408254,
     type: 3}
+  _fireworkShotPrefab: {fileID: 4621036799907280435, guid: 5210b8481ecb713479eab53a9809f7ac,
+    type: 3}
   _shieldEffect: {fileID: 659555174}
   _score: 0
   _rightDamage: {fileID: 1158812574}
@@ -1418,6 +1420,7 @@ MonoBehaviour:
   - {fileID: 2066567559549160442, guid: 857cbdbbbdae0bb4895ff45646f1c0ce, type: 3}
   - {fileID: 6481335373141917006, guid: 7b4da5a5b218e424ba01ffea297d2203, type: 3}
   - {fileID: 7108458351328847241, guid: 15e42054bed4a8844b4d46c9dacb5359, type: 3}
+  - {fileID: 7251040983427057228, guid: 9d35e58816336494f8870c73f9cac596, type: 3}
 --- !u!4 &746017726
 Transform:
   m_ObjectHideFlags: 0

@@ -25,10 +25,14 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     [SerializeField]
-    private GameObject _tripleShotPrefab;
+    private GameObject _tripleShotPrefab; 
+    [SerializeField]
+    private GameObject _fireworkShotPrefab; //create a gameobject for firework prefab
     private bool _isTripleShotActived = false;
+    private bool _isFireworkShotActived = false; //create a bool for firework shot
     private bool _isShieldActived = false;
     private bool _isDestroyed = false;
+    private GameObject _laserOffset;
 
     [SerializeField]
     private GameObject _shieldEffect;
@@ -144,10 +148,18 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
             }
+            else if(_isFireworkShotActived)
+            {
+                _laserOffset = Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+                Invoke("FireworkShoted", 0.5f);
+            }
             else
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
-            }           
+            }
+            //create else if for firework laser with bool
+            //after 1 sec of laser shot, destroy laser and create firework shot
+            //last for 5 second in coroutine 
         }
         else
         {
@@ -216,6 +228,25 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _isTripleShotActived = false;
+    }
+
+    void FireworkShoted()
+    {
+        Instantiate(_fireworkShotPrefab, _laserOffset.transform.position, Quaternion.identity);
+    }
+
+    //public method to enable firework shot
+    //stop this after 5 seconds
+    public void FireworkshotActive()
+    {
+        _isFireworkShotActived = true;
+        StartCoroutine(FireworkshotDeactivate());
+    }
+
+    IEnumerator FireworkshotDeactivate()
+    {
+        yield return new WaitForSeconds(5);
+        _isFireworkShotActived = false;
     }
 
     public void SpeedBoostActive()

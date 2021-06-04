@@ -25,29 +25,11 @@ public class Laser : MonoBehaviour
     void MoveUp()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-
-        if (transform.position.y > 8)
-        {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-            Destroy(gameObject);
-        }
     }
 
     void MoveDown()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
-        if (transform.position.y < -8)
-        {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-            Destroy(gameObject);
-        }
     }
 
     public void AssignEnemyLaser()
@@ -68,5 +50,14 @@ public class Laser : MonoBehaviour
             other.GetComponent<Enemy>().LaserHit();
             Destroy(gameObject);
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        Destroy(gameObject);
     }
 }
