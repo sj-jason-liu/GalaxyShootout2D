@@ -35,17 +35,17 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnPowerupRoutine()
     {
         yield return new WaitForSeconds(3f);
-
+        int _tripleshotCount = 0;
         while (_stopSpawn == false)
         {
-            int _tripleshotCount = 0;
             Vector3 posToSpwan = new Vector3(Random.Range(-12f, 12f), 10f, 0);
             int randomPowerup = Random.Range(0, _powerups.Length - 1);
             if(randomPowerup == 0)
             {
                 _tripleshotCount++;
+                Debug.Log("Tripleshot Called: " + _tripleshotCount);
             }
-            if(_tripleshotCount == 3)
+            if(_tripleshotCount == 4)
             {
                 Instantiate(_powerups[5], posToSpwan, Quaternion.identity);
                 _tripleshotCount = 0;
@@ -55,9 +55,6 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(_powerups[randomPowerup], posToSpwan, Quaternion.identity);
             }
             yield return new WaitForSeconds(Random.Range(3f, 8f));
-            //set int tripleshotCount = 0
-            //if randomPowerup == 0, tripleshotCount++
-            //if tripleshotCount == 5, instantiate powerup 5
         }
     }
 

@@ -46,10 +46,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //3 patten of movement according to the movement ID assign at Start()
         switch (_movementID)
         {
             case 0:
