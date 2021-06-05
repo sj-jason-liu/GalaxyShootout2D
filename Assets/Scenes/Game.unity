@@ -158,6 +158,7 @@ MonoBehaviour:
   _restartText: {fileID: 46054714}
   _quitText: {fileID: 549621570}
   _ammoText: {fileID: 724456262}
+  _maxAmmo: 50
   _livesImg: {fileID: 1470454304}
   _slider: {fileID: 367240369}
   _livesSprite:
@@ -486,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -16.399988, y: -3.4900036}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &353393932
@@ -1338,8 +1339,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 167.5, y: 110.99001}
-  m_SizeDelta: {x: 134.63907, y: 39.156036}
+  m_AnchoredPosition: {x: 163.5, y: 104.7}
+  m_SizeDelta: {x: 158.04184, y: 39.156036}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724456262
 MonoBehaviour:
@@ -1362,7 +1363,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c2d8939b0853b2e47975b97edeab4c3e, type: 3}
-    m_FontSize: 30
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1373,7 +1374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ': 15'
+  m_Text: ': 15/50'
 --- !u!222 &724456263
 CanvasRenderer:
   m_ObjectHideFlags: 0

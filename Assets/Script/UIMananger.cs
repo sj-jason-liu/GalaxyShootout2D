@@ -19,6 +19,8 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Text _ammoText;
     [SerializeField]
+    private int _maxAmmo = 50;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Slider _slider;
@@ -99,13 +101,18 @@ public class UIMananger : MonoBehaviour
 
     public void UpdateAmmo(int ammoCount)
     {
-        if(ammoCount > 0)
+        if(ammoCount > 0 && ammoCount <= _maxAmmo)
         {
-            _ammoText.text = ": " + ammoCount;
+            _ammoText.text = ": " + ammoCount + "/" + _maxAmmo;
+        }
+        else if(ammoCount > _maxAmmo)
+        {
+            ammoCount = _maxAmmo;
+            _ammoText.text = ": " + ammoCount + "/" + _maxAmmo;
         }
         else
         {
-            _ammoText.text = ": " + 0;
+            _ammoText.text = ": " + 0 + "/" + _maxAmmo;
         }
     }    
 }

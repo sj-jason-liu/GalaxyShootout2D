@@ -267,6 +267,10 @@ public class Player : MonoBehaviour
     public void AmmoCollected()
     {
         _laserCounts += 15;
+        if(_laserCounts > 50)
+        {
+            _laserCounts = 50;
+        }
         _uiManager.UpdateAmmo(_laserCounts);
     }
 
