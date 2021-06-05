@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _laserCounts = 15;
+    [SerializeField]
+    private int _laserMaxCounts = 50;
     
     [SerializeField]
     private float _fireRate = 0.2f;
@@ -101,7 +103,11 @@ public class Player : MonoBehaviour
         {
             ShootLaser();
             _laserCounts--;
-            _uiManager.UpdateAmmo(_laserCounts);
+            if(_laserCounts <= 0)
+            {
+                _laserCounts = 0;
+            }
+            _uiManager.UpdateAmmo(_laserCounts, _laserMaxCounts);
         }             
     }
 
@@ -144,6 +150,7 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;       
         if(_laserCounts > 0)
         {
+            _laserAudioSource.clip = _laserAudioClip;
             if (_isTripleShotActived)
             {
                 Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
@@ -267,11 +274,11 @@ public class Player : MonoBehaviour
     public void AmmoCollected()
     {
         _laserCounts += 15;
-        if(_laserCounts > 50)
+        if(_laserCounts > _laserMaxCounts)
         {
-            _laserCounts = 50;
+            _laserCounts = _laserMaxCounts;
         }
-        _uiManager.UpdateAmmo(_laserCounts);
+        _uiManager.UpdateAmmo(_laserCounts, _laserMaxCounts);
     }
 
     public void AddScore(int points)
