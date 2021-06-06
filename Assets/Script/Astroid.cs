@@ -26,6 +26,7 @@ public class Astroid : MonoBehaviour
     {
         if(other.tag == "Laser")
         {
+            GetComponent<CircleCollider2D>().enabled = false;
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
             _spawnManager.StartSpawning();

@@ -24,12 +24,16 @@ public class UIMananger : MonoBehaviour
     private Slider _slider;
     [SerializeField]
     private Sprite[] _livesSprite;
+    [SerializeField]
+    private Text _waveText;
     private GameManager _gameManager;
+    private Animator _canvasAnim;
 
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _slider.value = 0;
+        _canvasAnim = GetComponent<Animator>();
         _scoreText.text = "Score: " + 0;
         _gameoverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
@@ -100,5 +104,11 @@ public class UIMananger : MonoBehaviour
     public void UpdateAmmo(int ammoCount, int maxAmmo)
     {
         _ammoText.text = ": " + ammoCount + "/" + maxAmmo;
+    }
+    
+    public void WaveStart(int waveNum)
+    {
+        _waveText.text = "WAVE " + waveNum;
+        _canvasAnim.SetTrigger("Wave");
     }    
 }
