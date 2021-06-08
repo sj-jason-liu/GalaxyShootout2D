@@ -53,7 +53,7 @@ public class SpawnManager : MonoBehaviour
                 while(_enemySpawned < _currentWave * 5)
                 {
                     SpawnEnemy();
-                    yield return new WaitForSeconds(3);
+                    yield return new WaitForSeconds(Random.Range(2f, 5f));
                 }
                 if(_enemyContainer.transform.childCount == 0) 
                 {
@@ -69,7 +69,6 @@ public class SpawnManager : MonoBehaviour
                         _isSpawning = false;
                     } 
                 }
-                
                 yield return new WaitForSeconds(0.01f);
             }
             //ui success
@@ -90,23 +89,32 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnPowerupRoutine()
     {
         yield return new WaitForSeconds(3f);
+        int _normalPowerupCount = 0;
         int _tripleshotCount = 0;
         while (_stopSpawn == false)
         {
             Vector3 posToSpwan = new Vector3(Random.Range(-12f, 12f), 10f, 0);
-            int randomPowerup = Random.Range(0, _powerups.Length - 1);
+            int randomPowerup = Random.Range(0, _powerups.Length - 2);
+            int randomPoisonSpawn = Random.Range(5, 8);
             if(randomPowerup == 0)
             {
                 _tripleshotCount++;
             }
-            if(_tripleshotCount == 4)
+            if(_normalPowerupCount >= randomPoisonSpawn)
             {
                 Instantiate(_powerups[5], posToSpwan, Quaternion.identity);
+                Debug.Log("Poison Launched!");
+                _normalPowerupCount = 0;
+            }
+            else if(_tripleshotCount == 4)
+            {
+                Instantiate(_powerups[6], posToSpwan, Quaternion.identity);
                 _tripleshotCount = 0;
             }
             else
             {
                 Instantiate(_powerups[randomPowerup], posToSpwan, Quaternion.identity);
+                _normalPowerupCount++;
             }
             yield return new WaitForSeconds(Random.Range(3f, 8f));
         }

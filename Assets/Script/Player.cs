@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private bool _isFireworkShotActived = false; //create a bool for firework shot
     private bool _isShieldActived = false;
     private bool _isDestroyed = false;
+    private bool _isPoisoned = false;
     private GameObject _laserGameobject;
 
     [SerializeField]
@@ -46,7 +47,6 @@ public class Player : MonoBehaviour
     private GameObject _rightDamage, _leftDamage;
     [SerializeField]
     private GameObject _explosion;
-    private Animator _playerTurningAnim;
     [SerializeField]
     private AudioClip _laserAudioClip;
     private AudioSource _laserAudioSource;
@@ -55,14 +55,16 @@ public class Player : MonoBehaviour
     private Color _shieldAlpha;
     private CameraShaker _cameraShaker;
 
+    private Animator _playerAnim;
+
     void Start()
     {
         transform.position = new Vector3(0, -2f, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIMananger>();
         _laserAudioSource = GetComponent<AudioSource>();
+        _playerAnim = GetComponent<Animator>();
         _shieldAlpha = _shieldEffect.GetComponent<SpriteRenderer>().color;
-        _playerTurningAnim = GetComponent<Animator>();
         _cameraShaker = GameObject.Find("Main Camera").GetComponent<CameraShaker>();
         _originSpeed = _speed;
 
@@ -129,7 +131,6 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        _playerTurningAnim.SetFloat("Turning", horizontalInput);
         
         if(!_isDestroyed)
         {
@@ -189,7 +190,14 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _lives--;
+        if(_isPoisoned)
+        {
+            _lives -= 2;
+        }
+        else
+        {
+            _lives--;
+        }
 
         DamageSprites();
 
@@ -217,6 +225,7 @@ public class Player : MonoBehaviour
                 _leftDamage.SetActive(false);
                 break;
             case 1:
+                _rightDamage.SetActive(true);
                 _leftDamage.SetActive(true);
                 break;
         }
@@ -295,5 +304,21 @@ public class Player : MonoBehaviour
             _uiManager.UpdateSprite(_lives);
             DamageSprites();
         }
+    }
+
+    public void PoisonActived()
+    {
+        _isPoisoned = true;
+        _isShieldActived = false;
+        _shieldEffect.SetActive(false);
+        _playerAnim.SetBool("isPoisoned", true);
+        StartCoroutine(PoisonDeactivated());
+    }
+
+    IEnumerator PoisonDeactivated()
+    {
+        yield return new WaitForSeconds(5);
+        _playerAnim.SetBool("isPoisoned", false);
+        _isPoisoned = false;
     }
 }

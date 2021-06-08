@@ -60,6 +60,9 @@ public class Powerup : MonoBehaviour
                         player.AddLives();
                         break;
                     case 5:
+                        player.PoisonActived();
+                        break;
+                    case 6:
                         player.FireworkshotActive();
                         break;
                 }
