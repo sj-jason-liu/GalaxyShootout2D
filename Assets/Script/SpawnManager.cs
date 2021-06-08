@@ -71,9 +71,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 yield return new WaitForSeconds(0.01f);
             }
-            //ui success
             break;
-            //yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -102,13 +100,13 @@ public class SpawnManager : MonoBehaviour
             }
             if(_normalPowerupCount >= randomPoisonSpawn)
             {
-                Instantiate(_powerups[5], posToSpwan, Quaternion.identity);
+                Instantiate(_powerups[6], posToSpwan, Quaternion.identity);
                 Debug.Log("Poison Launched!");
                 _normalPowerupCount = 0;
             }
             else if(_tripleshotCount == 4)
             {
-                Instantiate(_powerups[6], posToSpwan, Quaternion.identity);
+                Instantiate(_powerups[5], posToSpwan, Quaternion.identity);
                 _tripleshotCount = 0;
             }
             else

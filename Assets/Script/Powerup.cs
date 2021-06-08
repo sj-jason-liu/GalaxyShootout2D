@@ -60,10 +60,10 @@ public class Powerup : MonoBehaviour
                         player.AddLives();
                         break;
                     case 5:
-                        player.PoisonActived();
+                        player.FireworkshotActive();
                         break;
                     case 6:
-                        player.FireworkshotActive();
+                        player.PoisonActived();
                         break;
                 }
                 GetComponent<BoxCollider2D>().enabled = false;

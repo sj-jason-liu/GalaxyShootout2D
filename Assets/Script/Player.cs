@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private bool _isShieldActived = false;
     private bool _isDestroyed = false;
     private bool _isPoisoned = false;
+    private bool _isSpeedPowerActivated = false;
     private GameObject _laserGameobject;
 
     [SerializeField]
@@ -96,7 +97,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isSpeedPowerActivated)
         {
             _uiManager.ThrustTrigger();
         }
@@ -262,6 +263,7 @@ public class Player : MonoBehaviour
 
     public void SpeedBoostActive()
     {
+        _isSpeedPowerActivated = true;
         _speed += _speedAddValue;
         StartCoroutine(SpeedBoostDeactivate());
     }
@@ -269,6 +271,7 @@ public class Player : MonoBehaviour
     IEnumerator SpeedBoostDeactivate()
     {
         yield return new WaitForSeconds(5f);
+        _isSpeedPowerActivated = false;
         _speed -= _speedAddValue;
     }
 
