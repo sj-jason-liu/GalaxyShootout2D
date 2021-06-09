@@ -47,7 +47,14 @@ public class Laser : MonoBehaviour
         }
         else if(other.tag == "Enemy" && !_isEnemyShooting)
         {
-            other.GetComponent<Enemy>().LaserHit();
+            if(other.GetComponent<Enemy>() == null)
+            {
+                other.GetComponent<Enemy_DetectBomb>().LaserHit();
+            }
+            else
+            {
+                other.GetComponent<Enemy>().LaserHit();
+            }
             Destroy(gameObject);
         }
     }

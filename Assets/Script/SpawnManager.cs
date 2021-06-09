@@ -7,6 +7,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
+    private GameObject _detectBomb;
+    [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] _powerups;
@@ -20,6 +22,7 @@ public class SpawnManager : MonoBehaviour
     private int[] _waveCounts;
     private int _currentWave;
     private int _enemySpawned;
+    private int _normalEnemySpawned = 0;
 
     private int _debugCallTime;
 
@@ -52,6 +55,10 @@ public class SpawnManager : MonoBehaviour
             {
                 while(_enemySpawned < _currentWave * 5)
                 {
+                    if(_normalEnemySpawned > 2 && _normalEnemySpawned % 4 == 0)
+                    {
+                        SpawnDetectBomb();
+                    }
                     SpawnEnemy();
                     yield return new WaitForSeconds(Random.Range(2f, 5f));
                 }
@@ -75,11 +82,18 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    void SpawnDetectBomb()
+    {
+        Vector3 posToSpawn = new Vector3(Random.Range(-12f, 12f), 10f, 0);
+        GameObject newEnemy = Instantiate(_detectBomb, posToSpawn, Quaternion.identity);
+    }
+    
     void SpawnEnemy()
     {
         Vector3 posToSpawn = new Vector3(Random.Range(-12f, 12f), 10f, 0);
         GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
         newEnemy.transform.parent = _enemyContainer.transform;
+        _normalEnemySpawned++;
         _enemySpawned++;
         Debug.Log("Enemy current count: " + _enemySpawned + " / " + _currentWave * 5);
     }
