@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private float _speed = 4f;
     [SerializeField]
     private GameObject _enemyLaser;
+    [SerializeField]
+    private GameObject _shieldEffect;
 
     [SerializeField]
     private int _movementID;
@@ -21,10 +23,17 @@ public class Enemy : MonoBehaviour
     private float _canFireTime = -1f;
 
     private bool _fireCheck = true;
+    private bool _isShieldEnable = false;
 
     void Start()
     {
         _movementID = Random.Range(-1, 2);
+        int _luckyShield = Random.Range(0, 3);
+        if(_luckyShield == 1)
+        {
+            _shieldEffect.SetActive(true);
+            _isShieldEnable = true;
+        }
         _player = GameObject.Find("Player").GetComponent<Player>();
         if(_player == null)
         {
@@ -97,33 +106,50 @@ public class Enemy : MonoBehaviour
     
     public void LaserHit()
     {
-        _fireCheck = false;
-        if (_player != null)
+        if(!_isShieldEnable)
         {
-            _player.AddScore(10); //communicate to player to add score
-        }
-        _anim.SetTrigger("OnEnemyDeath");
-        _enemyExplosionSource.Play();
-        GetComponent<BoxCollider2D>().enabled = false;
-        _speed = 0.5f;
-        Destroy(gameObject, 2.4f);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        _fireCheck = false;
-        Player player = other.GetComponent<Player>();
-        if (other.tag == "Player")
-        {    
-            if (player != null)
+            _fireCheck = false;
+            if (_player != null)
             {
-                player.Damage();
+                _player.AddScore(10); //communicate to player to add score
             }
             _anim.SetTrigger("OnEnemyDeath");
             _enemyExplosionSource.Play();
             GetComponent<BoxCollider2D>().enabled = false;
             _speed = 0.5f;
             Destroy(gameObject, 2.4f);
+        }
+        else
+        {
+            _isShieldEnable = false;
+            _shieldEffect.SetActive(false);
+        }
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!_isShieldEnable)
+        {
+            _fireCheck = false;
+            Player player = other.GetComponent<Player>();
+            if (other.tag == "Player")
+            {
+                if (player != null)
+                {
+                    player.Damage();
+                }
+                _anim.SetTrigger("OnEnemyDeath");
+                _enemyExplosionSource.Play();
+                GetComponent<BoxCollider2D>().enabled = false;
+                _speed = 0.5f;
+                Destroy(gameObject, 2.4f);
+            }
+        }
+        else
+        {
+            _isShieldEnable = false;
+            _shieldEffect.SetActive(false);
         }
     }    
 }
