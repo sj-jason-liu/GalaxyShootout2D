@@ -48,13 +48,13 @@ public class Powerup : MonoBehaviour
                         player.TripleShotActive();
                         break;
                     case 1:
-                        player.SpeedBoostActive();
+                        player.AmmoCollected(); 
                         break;
                     case 2:
                         player.ShieldActive();
                         break;
                     case 3:
-                        player.AmmoCollected();
+                        player.SpeedBoostActive();
                         break;
                     case 4:
                         player.AddLives();

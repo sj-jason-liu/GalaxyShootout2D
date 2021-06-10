@@ -1441,9 +1441,9 @@ MonoBehaviour:
   _enemyContainer: {fileID: 485281804}
   _powerups:
   - {fileID: 3660006106862897865, guid: 66ce4754bfa73e342aea72326dd0b167, type: 3}
-  - {fileID: 403951618085757264, guid: e463c749083cd5f489e26a9e0df157f0, type: 3}
-  - {fileID: 2066567559549160442, guid: 857cbdbbbdae0bb4895ff45646f1c0ce, type: 3}
   - {fileID: 6481335373141917006, guid: 7b4da5a5b218e424ba01ffea297d2203, type: 3}
+  - {fileID: 2066567559549160442, guid: 857cbdbbbdae0bb4895ff45646f1c0ce, type: 3}
+  - {fileID: 403951618085757264, guid: e463c749083cd5f489e26a9e0df157f0, type: 3}
   - {fileID: 7108458351328847241, guid: 15e42054bed4a8844b4d46c9dacb5359, type: 3}
   - {fileID: 7251040983427057228, guid: 9d35e58816336494f8870c73f9cac596, type: 3}
   - {fileID: 6288091469193576665, guid: dfb5c235e0524c04a95523204c5fb0a0, type: 3}
