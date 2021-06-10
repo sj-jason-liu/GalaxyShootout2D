@@ -14,6 +14,7 @@ public class Enemy_DetectBomb : MonoBehaviour
     [SerializeField]
     private AudioClip _enemyExplosionClip;
     private AudioSource _audioSource;
+    private Animator _animator;
     [SerializeField]
     private GameObject _exploPrefab;
     [SerializeField]
@@ -23,6 +24,7 @@ public class Enemy_DetectBomb : MonoBehaviour
     void Start()
     {
         StartCoroutine(InstantMovement());
+        _animator = GetComponent<Animator>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player == null)
         {
@@ -67,6 +69,8 @@ public class Enemy_DetectBomb : MonoBehaviour
                     }
                     else
                     {
+
+                        _animator.SetTrigger("Teleport");
                         transform.position = rCP;
                         moveCount++;
                     }

@@ -18,7 +18,9 @@ public class Enemy : MonoBehaviour
     private AudioClip _enemyExplosionClip;
     private AudioSource _enemyExplosionSource;
     private float _fireRate = 3f;
-    private float _canFire = -1f;
+    private float _canFireTime = -1f;
+
+    private bool _fireCheck = true;
 
     void Start()
     {
@@ -58,10 +60,10 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        if (Time.time > _canFire)
+        if (Time.time > _canFireTime && _fireCheck)
         {
             _fireRate = Random.Range(3f, 7f);
-            _canFire = Time.time + _fireRate;
+            _canFireTime = Time.time + _fireRate;
             GameObject enemyLaser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
             Laser laserScript = enemyLaser.GetComponentInChildren<Laser>();
             laserScript.AssignEnemyLaser();
@@ -95,6 +97,7 @@ public class Enemy : MonoBehaviour
     
     public void LaserHit()
     {
+        _fireCheck = false;
         if (_player != null)
         {
             _player.AddScore(10); //communicate to player to add score
@@ -108,6 +111,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        _fireCheck = false;
         Player player = other.GetComponent<Player>();
         if (other.tag == "Player")
         {    

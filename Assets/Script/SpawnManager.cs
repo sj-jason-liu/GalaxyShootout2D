@@ -139,7 +139,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator Tier2PowerupRoutine()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         while(_stopSpawn == false)
         {
             int tier2Powerup = Random.Range(2, 4);
