@@ -72,8 +72,6 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        
-
         if (Time.time > _canFireTime && _fireCheck)
         {
             _fireRate = Random.Range(3f, 7f);
@@ -123,6 +121,13 @@ public class Enemy : MonoBehaviour
         }
     }
     
+    public void FireLaser()
+    {
+        GameObject enemyLaser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+        Laser laserScript = enemyLaser.GetComponentInChildren<Laser>();
+        laserScript.AssignEnemyLaser();
+    }
+    
     public void LaserHit()
     {
         if(!_isShieldEnable)
@@ -142,12 +147,11 @@ public class Enemy : MonoBehaviour
         {
             _isShieldEnable = false;
             _shieldEffect.SetActive(false);
-        }
-        
+        } 
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
-    {
+    {   
         if(!_isShieldEnable)
         {
             _fireCheck = false;

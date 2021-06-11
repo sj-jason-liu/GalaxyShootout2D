@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4387232574839303164}
   m_Layer: 0
   m_Name: Ammo_Powerup
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,6 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _powerupID: 1
+  _powerupDestroyPrefab: {fileID: 5481064878762251491, guid: b81a119f93c3f944c93657a51d037e94,
+    type: 3}
   _powerupAudioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!82 &7665820071073080272
 AudioSource:

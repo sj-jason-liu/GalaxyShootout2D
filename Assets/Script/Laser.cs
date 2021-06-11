@@ -39,15 +39,15 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player" && _isEnemyShooting)
+        if (other.tag == "Player" && _isEnemyShooting)
         {
             Player player = other.GetComponent<Player>();
             player.Damage();
             Destroy(gameObject);
         }
-        else if(other.tag == "Enemy" && !_isEnemyShooting)
+        else if (other.tag == "Enemy" && !_isEnemyShooting)
         {
-            if(other.GetComponent<Enemy>() == null)
+            if (other.GetComponent<Enemy>() == null)
             {
                 other.GetComponent<Enemy_DetectBomb>().LaserHit();
             }
@@ -57,6 +57,11 @@ public class Laser : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        else if (other.tag == "Powerup" && _isEnemyShooting)
+        {
+            other.GetComponent<Powerup>().EnemyLaserHit();
+            Destroy(gameObject);
+        }    
     }
 
     private void OnBecameInvisible()

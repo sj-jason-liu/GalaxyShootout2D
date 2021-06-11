@@ -9,6 +9,8 @@ public class Powerup : MonoBehaviour
     [SerializeField] //0 = triple shot, 1 = speed, 2 = shields
     private int _powerupID;
     [SerializeField]
+    private GameObject _powerupDestroyPrefab;
+    [SerializeField]
     private AudioClip _powerupAudioClip;
     private AudioSource _powerupAudioSource;
 
@@ -34,6 +36,14 @@ public class Powerup : MonoBehaviour
         }
     }
 
+    public void EnemyLaserHit()
+    {
+        //play destroied animation
+        _speed = 0f;
+        Instantiate(_powerupDestroyPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject, 0.5f);
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
