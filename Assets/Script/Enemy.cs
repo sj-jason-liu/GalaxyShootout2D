@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3f;
     private float _canFireTime = -1f;
 
+    [SerializeField]
+    private float _detectRange = 5f;
+
     private bool _fireCheck = true;
     private bool _isShieldEnable = false;
 
@@ -69,6 +72,8 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
+        
+
         if (Time.time > _canFireTime && _fireCheck)
         {
             _fireRate = Random.Range(3f, 7f);
@@ -81,13 +86,27 @@ public class Enemy : MonoBehaviour
 
     void NormalMovement()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if (Vector3.Distance(_player.transform.position, transform.position) < _detectRange)
+        {
+           transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
         BoundaryRespawn();
     }
 
     void DiagonalMovement(int direct)
     {
-        transform.Translate(new Vector3(direct, -1, 0).normalized * _speed * Time.deltaTime);
+        if (Vector3.Distance(_player.transform.position, transform.position) < _detectRange)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(new Vector3(direct, -1, 0).normalized * _speed * Time.deltaTime);
+        }
         BoundaryRespawn();
     }
 
@@ -151,5 +170,10 @@ public class Enemy : MonoBehaviour
             _isShieldEnable = false;
             _shieldEffect.SetActive(false);
         }
-    }    
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, _detectRange);
+    }
 }
