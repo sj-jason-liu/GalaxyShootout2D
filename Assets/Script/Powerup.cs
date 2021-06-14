@@ -10,9 +10,11 @@ public class Powerup : MonoBehaviour
     private int _powerupID;
     [SerializeField]
     private GameObject _powerupDestroyPrefab;
+    private GameObject _player;
     [SerializeField]
     private AudioClip _powerupAudioClip;
     private AudioSource _powerupAudioSource;
+    private bool _pressedCollect = false;
 
     private void Start()
     {
@@ -25,15 +27,38 @@ public class Powerup : MonoBehaviour
         {
             _powerupAudioSource.clip = _powerupAudioClip;
         }
+        _player = GameObject.Find("Player");
+        if(_player == null)
+        {
+            Debug.LogError("Player couldn't found!");
+        }
     }
 
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
-        if(transform.position.y <= -8f)
+        if(_pressedCollect)
         {
-            Destroy(gameObject);
+            transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * 3 * Time.deltaTime);
         }
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+            if (transform.position.y <= -8f)
+            {
+                Destroy(gameObject);
+            }
+        }  
+    }
+
+    public void StartCollect()
+    {
+        _pressedCollect = true;
+        Invoke("StopCollect", 3f);
+    }
+
+    void StopCollect()
+    {
+        _pressedCollect = false;
     }
 
     public void EnemyLaserHit()

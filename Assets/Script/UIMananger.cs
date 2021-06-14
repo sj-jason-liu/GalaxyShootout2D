@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIMananger : MonoBehaviour
 {
     private bool _isThrusting = false;
+    private bool _isCollecting = false;
     private Player _player;
 
     [SerializeField]
@@ -23,6 +24,8 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Slider _slider;
     [SerializeField]
+    private Slider _collectSlider;
+    [SerializeField]
     private Sprite[] _livesSprite;
     [SerializeField]
     private Text _waveText;
@@ -33,6 +36,7 @@ public class UIMananger : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _slider.value = 0;
+        _collectSlider.value = 0;
         _canvasAnim = GetComponent<Animator>();
         _scoreText.text = "Score: " + 0;
         _gameoverText.gameObject.SetActive(false);
@@ -60,6 +64,24 @@ public class UIMananger : MonoBehaviour
                 _player.ThrustEnable(false);
             }
         }
+
+        if(!_isCollecting)
+        {
+            _collectSlider.value += Time.deltaTime;
+            if(_collectSlider.value >= 20)
+            {
+                _player.CollectDetect(true);
+            }
+        }
+        else
+        {
+            _collectSlider.value -= Time.deltaTime * 20;
+            if(_collectSlider.value <= 0)
+            {
+                _isCollecting = false;
+                _player.CollectDetect(false);
+            }
+        }
     }
 
     public void ThrustTrigger()
@@ -69,6 +91,11 @@ public class UIMananger : MonoBehaviour
             _isThrusting = true;
             _player.ThrustEnable(true);
         }
+    }
+
+    public void CollectTrigger()
+    {
+        _isCollecting = true;
     }
 
     public void UpdateScore(int playerScore)

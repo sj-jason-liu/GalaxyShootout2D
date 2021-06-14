@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private bool _isDestroyed = false;
     private bool _isPoisoned = false;
     private bool _isSpeedPowerActivated = false;
+    private bool _canCollect = false;
     private GameObject _laserGameobject;
 
     [SerializeField]
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     private AudioClip _laserExaustedClip;
     private Color _shieldAlpha;
     private CameraShaker _cameraShaker;
+    private GameObject[] _powerup;
 
     private Animator _playerAnim;
 
@@ -111,7 +113,26 @@ public class Player : MonoBehaviour
                 _laserCounts = 0;
             }
             _uiManager.UpdateAmmo(_laserCounts, _laserMaxCounts);
-        }             
+        }
+
+        _powerup = GameObject.FindGameObjectsWithTag("Powerup");
+        foreach (GameObject pu in _powerup)
+        {
+            if(pu == null)
+            {
+                return;
+            }
+            else if (Input.GetKeyDown(KeyCode.C) && _canCollect)
+            {
+                //search if any powerups in scene
+                //if not, return null
+                //else
+                //activate the powerups with movement method
+                //movement target is Player
+                pu.GetComponent<Powerup>().StartCollect();
+                _uiManager.CollectTrigger(); 
+            }
+        }
     }
 
     public void ThrustEnable(bool status)
@@ -125,6 +146,11 @@ public class Player : MonoBehaviour
                 _speed = _originSpeed;
                 break;
         }
+    }
+
+    public void CollectDetect(bool status)
+    {
+        _canCollect = status;
     }
 
     void CalculateMovement()
