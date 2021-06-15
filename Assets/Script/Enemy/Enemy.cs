@@ -21,16 +21,19 @@ public class Enemy : MonoBehaviour
     private AudioSource _enemyExplosionSource;
     private float _fireRate = 3f;
     private float _canFireTime = -1f;
+    private int _ranNum;
 
     [SerializeField]
     private float _detectRange = 5f;
 
     private bool _fireCheck = true;
     private bool _isShieldEnable = false;
+    private bool _isLaserComing = false;
 
     void Start()
     {
         _movementID = Random.Range(-1, 2);
+        _ranNum = Random.Range(0, 2) * 2 - 1;
         int _luckyShield = Random.Range(0, 3);
         if(_luckyShield == 1)
         {
@@ -62,24 +65,30 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        switch (_movementID)
+        
+        if(_isLaserComing)
         {
-            case 0:
-                NormalMovement();
-                break;
-            default:
-                DiagonalMovement(_movementID);
-                break;
+            transform.Translate(new Vector3(_ranNum * 5, -1, 0) * _speed * Time.deltaTime);
         }
+        else
+        {
+            switch (_movementID)
+            {
+                case 0:
+                    NormalMovement();
+                    break;
+                default:
+                    DiagonalMovement(_movementID);
+                    break;
+            }
+        }    
+        
+        RapidLaser(); 
+    }
 
-        if (Time.time > _canFireTime && _fireCheck)
-        {
-            _fireRate = Random.Range(3f, 7f);
-            _canFireTime = Time.time + _fireRate;
-            GameObject enemyLaser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
-            Laser laserScript = enemyLaser.GetComponentInChildren<Laser>();
-            laserScript.AssignEnemyLaser();
-        }
+    public void LaserDetected(bool status)
+    {
+        _isLaserComing = status;
     }
 
     void NormalMovement()
@@ -118,6 +127,18 @@ public class Enemy : MonoBehaviour
         if (transform.position.x > 13.3f || transform.position.x < -13.3f)
         {
             transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
+        }
+    }
+
+    void RapidLaser()
+    {
+        if (Time.time > _canFireTime && _fireCheck)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFireTime = Time.time + _fireRate;
+            GameObject enemyLaser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+            Laser laserScript = enemyLaser.GetComponentInChildren<Laser>();
+            laserScript.AssignEnemyLaser();
         }
     }
     

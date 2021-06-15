@@ -51,24 +51,33 @@ public class UIMananger : MonoBehaviour
 
     private void Update()
     {
-        if(!_isThrusting)
+        ThrustingSlide();
+        CollectingSlide();
+    }
+
+    void ThrustingSlide()
+    {
+        if (!_isThrusting)
         {
             _slider.value += Time.deltaTime;
         }
         else
         {
             _slider.value -= Time.deltaTime * 3;
-            if(_slider.value <= 0)
+            if (_slider.value <= 0)
             {
                 _isThrusting = false;
                 _player.ThrustEnable(false);
             }
         }
+    }
 
-        if(!_isCollecting)
+    void CollectingSlide()
+    {
+        if (!_isCollecting)
         {
             _collectSlider.value += Time.deltaTime;
-            if(_collectSlider.value >= 20)
+            if (_collectSlider.value >= 20)
             {
                 _player.CollectDetect(true);
             }
@@ -76,7 +85,7 @@ public class UIMananger : MonoBehaviour
         else
         {
             _collectSlider.value -= Time.deltaTime * 20;
-            if(_collectSlider.value <= 0)
+            if (_collectSlider.value <= 0)
             {
                 _isCollecting = false;
                 _player.CollectDetect(false);

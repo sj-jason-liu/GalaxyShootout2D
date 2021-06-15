@@ -124,11 +124,6 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.C) && _canCollect)
             {
-                //search if any powerups in scene
-                //if not, return null
-                //else
-                //activate the powerups with movement method
-                //movement target is Player
                 pu.GetComponent<Powerup>().StartCollect();
                 _uiManager.CollectTrigger(); 
             }

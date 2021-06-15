@@ -35,6 +35,7 @@ public class Laser : MonoBehaviour
     public void AssignEnemyLaser()
     {
         _isEnemyShooting = true;
+        gameObject.tag = "EnemyLaser";
     }
 
     private void OnTriggerEnter2D(Collider2D other)
