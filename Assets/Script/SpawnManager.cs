@@ -90,6 +90,7 @@ public class SpawnManager : MonoBehaviour
             }
             break;
         }
+        //boss wave
     }
 
     void SpawnDetectBomb()

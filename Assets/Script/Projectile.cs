@@ -58,11 +58,6 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
     void FindTarget()
     {
         float nearestDist = Mathf.Infinity;
@@ -76,6 +71,10 @@ public class Projectile : MonoBehaviour
                 _nearestEnemy = en;
             }
         }
-        
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

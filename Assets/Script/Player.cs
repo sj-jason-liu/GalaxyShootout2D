@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Instantiate(_projectile, transform.position, Quaternion.identity);
+                Instantiate(_projectile, transform.position + new Vector3(0, 1.7f, 0), Quaternion.identity);
                 _missileCounts--;
                 _uiManager.UpdateMissile(_missileCounts);
             }
