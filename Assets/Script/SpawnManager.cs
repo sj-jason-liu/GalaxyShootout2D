@@ -50,6 +50,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(Tier1PowerupRoutine());
         StartCoroutine(Tier2PowerupRoutine());
         StartCoroutine(Tier3PowerupRoutine());
+        StartCoroutine(Tier4PowerupRoutine());
     }
 
     IEnumerator NewWaveSpawning()
@@ -110,7 +111,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         int _normalPowerupCount = 0;
         int _tripleshotCount = 0;
-        while (_stopSpawn == false)
+        while (!_stopSpawn)
         {
             int tier1Powerup = Random.Range(0, 2);
             int randomPoisonSpawn = Random.Range(5, 8);
@@ -120,7 +121,7 @@ public class SpawnManager : MonoBehaviour
             }
             if (_normalPowerupCount >= randomPoisonSpawn && _normalPowerupCount % 5 == 0)
             {
-                Instantiate(_powerups[6], _posToSpawn, Quaternion.identity);
+                Instantiate(_powerups[7], _posToSpawn, Quaternion.identity);
                 Debug.Log("Poison Launched!");
             }
             if (_tripleshotCount == 4)
@@ -140,7 +141,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator Tier2PowerupRoutine()
     {
         yield return new WaitForSeconds(5f);
-        while(_stopSpawn == false)
+        while(!_stopSpawn)
         {
             int tier2Powerup = Random.Range(2, 4);
             Instantiate(_powerups[tier2Powerup], _posToSpawn, Quaternion.identity);
@@ -150,7 +151,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator Tier3PowerupRoutine()
     {
-        while(_stopSpawn == false)
+        while(!_stopSpawn)
         {
             if(_normalEnemySpawned > 8)
             {
@@ -159,7 +160,19 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(Random.Range(12f, 15f));
         }
-        
+    }
+
+    IEnumerator Tier4PowerupRoutine()
+    {
+        while(!_stopSpawn)
+        {
+            if(_normalEnemySpawned > 10)
+            {
+                int tier4Powerup = 6;
+                Instantiate(_powerups[tier4Powerup], _posToSpawn, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(Random.Range(14f, 17f));
+        }
     }
 
     public void PlayerDeath()

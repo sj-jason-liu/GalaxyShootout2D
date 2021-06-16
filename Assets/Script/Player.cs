@@ -13,11 +13,14 @@ public class Player : MonoBehaviour
     private float _speedAddValue = 3.5f;
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _projectile;
 
     [SerializeField]
     private int _laserCounts = 15;
     [SerializeField]
     private int _laserMaxCounts = 50;
+    private int _missileCounts = 0;
     
     [SerializeField]
     private float _fireRate = 0.2f;
@@ -113,6 +116,20 @@ public class Player : MonoBehaviour
                 _laserCounts = 0;
             }
             _uiManager.UpdateAmmo(_laserCounts, _laserMaxCounts);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if(_missileCounts <= 0)
+            {
+                _missileCounts = 0;
+            }
+            else
+            {
+                Instantiate(_projectile, transform.position, Quaternion.identity);
+                _missileCounts--;
+                _uiManager.UpdateMissile(_missileCounts);
+            }
         }
 
         _powerup = GameObject.FindGameObjectsWithTag("Powerup");
@@ -328,6 +345,12 @@ public class Player : MonoBehaviour
             _uiManager.UpdateSprite(_lives);
             DamageSprites();
         }
+    }
+
+    public void AddMissile()
+    {
+        _missileCounts += 3;
+        _uiManager.UpdateMissile(_missileCounts);
     }
 
     public void PoisonActived()

@@ -98,6 +98,9 @@ public class Powerup : MonoBehaviour
                         player.FireworkshotActive();
                         break;
                     case 6:
+                        player.AddMissile();
+                        break;
+                    case 7:
                         player.PoisonActived();
                         break;
                 }

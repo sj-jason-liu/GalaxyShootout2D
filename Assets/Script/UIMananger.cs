@@ -20,6 +20,8 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Text _ammoText;
     [SerializeField]
+    private Text _missileText;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Slider _slider;
@@ -140,6 +142,11 @@ public class UIMananger : MonoBehaviour
     public void UpdateAmmo(int ammoCount, int maxAmmo)
     {
         _ammoText.text = ": " + ammoCount + "/" + maxAmmo;
+    }
+
+    public void UpdateMissile(int missileCount)
+    {
+        _missileText.text = ": " + missileCount;
     }
     
     public void WaveStart(int waveNum)
