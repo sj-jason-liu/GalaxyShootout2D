@@ -7,6 +7,7 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private float _speed = 8f;
 
+    [SerializeField]
     private bool _isEnemyShooting = false;
 
     // Update is called once per frame
@@ -62,7 +63,15 @@ public class Laser : MonoBehaviour
         {
             other.GetComponent<Powerup>().EnemyLaserHit();
             Destroy(gameObject);
-        }    
+        }
+        else if (other.tag == "Boss" && !_isEnemyShooting)
+        {
+            if(other.GetComponent<Boss>() != null)
+            {
+                other.GetComponent<Boss>().LaserHit();
+            }
+            Destroy(gameObject);
+        }
     }
 
     private void OnBecameInvisible()

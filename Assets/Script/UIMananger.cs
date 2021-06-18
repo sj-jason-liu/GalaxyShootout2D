@@ -7,6 +7,7 @@ public class UIMananger : MonoBehaviour
 {
     private bool _isThrusting = false;
     private bool _isCollecting = false;
+    private bool _isBossReady = true;
     private Player _player;
 
     [SerializeField]
@@ -28,6 +29,8 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Slider _collectSlider;
     [SerializeField]
+    private Slider _bossHealthSlider;
+    [SerializeField]
     private Sprite[] _livesSprite;
     [SerializeField]
     private Text _waveText;
@@ -39,6 +42,7 @@ public class UIMananger : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _slider.value = 0;
         _collectSlider.value = 0;
+        _bossHealthSlider.value = 0;
         _canvasAnim = GetComponent<Animator>();
         _scoreText.text = "Score: " + 0;
         _gameoverText.gameObject.SetActive(false);
@@ -55,6 +59,7 @@ public class UIMananger : MonoBehaviour
     {
         ThrustingSlide();
         CollectingSlide();
+        BossHealthSlide();
     }
 
     void ThrustingSlide()
@@ -91,6 +96,18 @@ public class UIMananger : MonoBehaviour
             {
                 _isCollecting = false;
                 _player.CollectDetect(false);
+            }
+        }
+    }
+
+    void BossHealthSlide()
+    {
+        if(!_isBossReady)
+        {
+            _bossHealthSlider.value += Time.deltaTime * 33;
+            if(_bossHealthSlider.value >= 100)
+            {
+                _isBossReady = true;
             }
         }
     }
@@ -153,5 +170,15 @@ public class UIMananger : MonoBehaviour
     {
         _waveText.text = "WAVE " + waveNum;
         _canvasAnim.SetTrigger("Wave");
-    }    
+    }
+
+    public void BossHealthUpdate(int health)
+    {
+        _bossHealthSlider.value = health;
+    }
+
+    public void BossGetReady()
+    {
+        _isBossReady = false;
+    }
 }

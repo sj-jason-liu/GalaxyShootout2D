@@ -11,6 +11,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] _powerups;
+    [SerializeField]
+    private GameObject _boss;
+    [SerializeField]
+    private GameObject _bossHealthBar;
 
     private UIMananger _uiManager;
 
@@ -88,9 +92,12 @@ public class SpawnManager : MonoBehaviour
                 }
                 yield return new WaitForSeconds(0.01f);
             }
+            //boss wave
+            _bossHealthBar.SetActive(true);
+            _uiManager.BossGetReady();
+            _boss.SetActive(true);
             break;
         }
-        //boss wave
     }
 
     void SpawnDetectBomb()
