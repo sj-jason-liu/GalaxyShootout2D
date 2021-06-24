@@ -23,6 +23,8 @@ public class UIMananger : MonoBehaviour
     [SerializeField]
     private Text _missileText;
     [SerializeField]
+    private Text _gameClearText;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Slider _slider;
@@ -48,6 +50,7 @@ public class UIMananger : MonoBehaviour
         _gameoverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
         _quitText.gameObject.SetActive(false);
+        _gameClearText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         if(_gameManager == null)
         {
@@ -180,5 +183,24 @@ public class UIMananger : MonoBehaviour
     public void BossGetReady()
     {
         _isBossReady = false;
+    }
+
+    public void GameClear()
+    {
+        StartCoroutine(GameClearText());
+        _gameManager.GameOver();
+        _restartText.gameObject.SetActive(true);
+        _quitText.gameObject.SetActive(true);
+    }
+
+    IEnumerator GameClearText()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(1f);
+            _gameClearText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            _gameClearText.gameObject.SetActive(false);
+        }
     }
 }

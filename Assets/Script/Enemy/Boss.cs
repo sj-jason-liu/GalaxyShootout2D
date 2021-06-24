@@ -87,6 +87,7 @@ public class Boss : MonoBehaviour
         else
         {
             transform.Translate(Vector3.up * Time.deltaTime);
+            Invoke("CallGameClearText", 5f);
         }
         Debug.Log(_movementID);
     }
@@ -228,5 +229,15 @@ public class Boss : MonoBehaviour
     void AttackBSwitch()
     {
         _attackMethodBStarted = true;
+    }
+
+    void CallGameClearText()
+    {
+        bool _isCalled = false;
+        if(!_isCalled)
+        {
+            _uiManager.GameClear();
+            _isCalled = true;
+        }       
     }
 }

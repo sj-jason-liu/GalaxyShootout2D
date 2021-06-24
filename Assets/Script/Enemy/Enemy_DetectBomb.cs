@@ -98,6 +98,7 @@ public class Enemy_DetectBomb : MonoBehaviour
         {
             _player.AddScore(10); //communicate to player to add score
         }
+        GetComponent<CircleCollider2D>().enabled = false;
         Instantiate(_exploPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject, 0.5f);
     }
